@@ -13,6 +13,8 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
         @livewireStyles
 
         <!-- Scripts -->
@@ -44,32 +46,35 @@
 
         @stack('modals')
 
-        @livewireScripts
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        @include('sweetalert::alert')       
 
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-        <script>
-            $('.closedAplication').submit(function(e) {
-                e.preventDefault();
-                
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire(
-                          'Deleted!',
-                          'Your file has been deleted.',
-                          'success'
-                          )
-                    }
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#closedAplication').click(function(e) {          
+                    Swal.fire({
+                        title: '¿Deseas cerrar sesión?',                    
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Sí, salir.'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Sesión finalizada!',
+                                'Muchas gracias, por visitarnos!!!',
+                                'success'
+                            )
+                            document.getElementById('logout-form').submit();
+                        }
+                    });
                 });
             });
         </script>   
+
+        @livewireScripts        
     </body>
 </html>
