@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+
+
+Route::middleware(['auth:sanctum', 'verified', 'middleware' => 'role:client'])
+			->get('banking-transactions', [AccountController::class, 'bankingTransactions'])
+			->name('banking.transactions');
+
+
+Route::middleware(['auth:sanctum', 'verified', 'middleware' => 'role:client'])
+			->get('account-status', [AccountController::class, 'accountStatus'])
+			->name('account.status');
+
