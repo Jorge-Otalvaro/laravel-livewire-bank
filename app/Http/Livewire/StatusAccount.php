@@ -21,6 +21,32 @@ class StatusAccount extends Component
     						->latest('id')
     						->take(5)->get();
 
+        if (count($movements) < 1) {
+            $this->alert('error', 'No existen movimientos para mostrar!', [
+                'position' =>  'top-end', 
+                'timer' =>  3000,  
+                'toast' =>  true, 
+                'text' =>  '', 
+                'confirmButtonText' =>  'Ok', 
+                'cancelButtonText' =>  'Cancel', 
+                'showCancelButton' =>  false, 
+                'showConfirmButton' =>  false, 
+            ]);
+        }
+
+        if (count($movements) > 0) {
+            $this->alert('success', 'Listando movimientos', [
+                'position' =>  'top-end', 
+                'timer' =>  3000,  
+                'toast' =>  true, 
+                'text' =>  '', 
+                'confirmButtonText' =>  'Ok', 
+                'cancelButtonText' =>  'Cancel', 
+                'showCancelButton' =>  false, 
+                'showConfirmButton' =>  false, 
+            ]);
+        }
+
         return view('livewire.status-account', compact('accounts', 'movements'));
     }
 

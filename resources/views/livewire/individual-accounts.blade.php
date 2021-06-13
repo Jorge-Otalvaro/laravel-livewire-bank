@@ -1,4 +1,39 @@
 <main>
+	@if($newaccount == 1)
+		<div class="flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-3 lg:px-3">
+			<div class="max-w-md w-full space-y-8">
+				<div>
+					<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+						Registrar cuenta propia
+					</h2>
+				</div>
+				<form class="mt-8 space-y-6" action="#" method="POST">
+					<input type="hidden" name="remember" value="true">
+					<div class="rounded-md shadow-sm -space-y-px">
+						<div>
+							<label for="name" class="sr-only">Nombre</label>
+							<input id="name" name="name" type="text" autocomplete="off" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Nombre de la persona" wire:model="name">
+							@error('name')<span class="text-red-500">{{ $message }}</span>@enderror
+						</div>
+
+						<div>
+							<label for="number_account" class="sr-only">Numero de cuenta</label>
+							<input id="number_account" name="number_account" type="number" autocomplete="off" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Numero de cuenta" wire:model="number_account">
+							@error('number_account')<span class="text-red-500">{{ $message }}</span>@enderror
+						</div>
+					</div>
+					
+					<div>
+						<button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" wire:click.prevent="store()">
+							Registrar
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	@else
+	@endif
+
 	@if(count($accounts) > 0)
 		<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">      
 			<div class="px-4 py-6 sm:px-0">
@@ -99,7 +134,7 @@
 						</p>
 					</div>
 					<div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-						<button class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50" data-toggle="modal" data-target="#exampleModal">
+						<button class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50" wire:click="create()">
 							Registrar nueva cuenta
 						</button>
 					</div>
@@ -108,17 +143,3 @@
 		</div>
 	@endif
 </main>
-
-{{-- onclick="sendIndividualAccount()" --}}
-
-<script>
-    function sendIndividualAccount(){
-        console.log('Realizar trasferencia entre cuentas propias')
-        // window.livewire.emitTo('component2','evento1', $('.valor').val()); 
-    }
-
-    function sendOtherAccount(){
-        console.log('Realizar transferencia a cuentas de terceros')
-        // window.livewire.emitTo('component2','evento1', $('.valor').val()); 
-    }
-</script>

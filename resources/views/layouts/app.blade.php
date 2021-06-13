@@ -72,30 +72,11 @@
                         }
                     });
                 });
-
-                $('#finishTransaction').click(function(e) {          
-                    Swal.fire({
-                        title: '¿Deseas cerrar sesión?',                    
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        cancelButtonText: 'Cancelar',
-                        confirmButtonText: 'Sí, salir.'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire(
-                                'Sesión finalizada!',
-                                'Muchas gracias, por visitarnos!!!',
-                                'success'
-                            )
-                            document.getElementById('logout-form').submit();
-                        }
-                    });
-                });
             });
         </script>   
 
         @livewireScripts        
+
+        <x-livewire-alert::scripts />
     </body>
 </html>
