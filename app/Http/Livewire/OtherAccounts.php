@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\OtherAccount;
 
 class OtherAccounts extends Component
 {
@@ -10,7 +11,11 @@ class OtherAccounts extends Component
 
     public function render()
     {
-        return view('livewire.other-accounts');
+        $accounts   = OtherAccount::where('user_id', auth()->id())
+                            ->latest('id')
+                            ->get();
+
+        return view('livewire.other-accounts', compact('accounts'));
     }
 
    	protected $listeners = [

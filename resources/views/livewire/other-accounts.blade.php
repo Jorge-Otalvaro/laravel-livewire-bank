@@ -1,86 +1,112 @@
 <main>
-	<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">      
-		<div class="px-4 py-6 sm:px-0">
-			<div class="mt-10 sm:mt-0">
-				<div class="md:grid md:grid-cols-3 md:gap-6">
-					<div class="md:col-span-1">
-						<div class="px-4 sm:px-0">
-							<h3 class="text-lg font-medium leading-6 text-gray-900">
-								Realizar transferencia a cuentas de terceros
-							</h3>
-							<p class="mt-1 text-sm text-gray-600">
-								Podrás realizar las trasferencias a las cuentas de terceros, que no tengas registradas previamente.
-							</p>
+	@if(count($accounts) > 0)
+		<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">      
+			<div class="px-4 py-6 sm:px-0">
+				<div class="mt-10 sm:mt-0">
+					<div class="md:grid md:grid-cols-3 md:gap-6">
+						<div class="md:col-span-1">
+							<div class="px-4 sm:px-0">
+								<h3 class="text-lg font-medium leading-6 text-gray-900">
+									Realizar transferencia a cuentas de terceros
+								</h3>
+								<p class="mt-1 text-sm text-gray-600">
+									Podrás realizar las trasferencias a las cuentas de terceros, que no tengas registradas previamente.
+								</p>
+							</div>
 						</div>
-					</div>
 
-					<div class="mt-5 md:mt-0 md:col-span-2">
-						<form action="#" method="POST">
-							<div class="shadow overflow-hidden sm:rounded-md">
-								<div class="px-4 py-5 bg-white sm:p-6">
-									<div class="grid grid-cols-6 gap-6">
+						<div class="mt-5 md:mt-0 md:col-span-2">
+							<form action="#" method="POST">
+								<div class="shadow overflow-hidden sm:rounded-md">
+									<div class="px-4 py-5 bg-white sm:p-6">
+										<div class="grid grid-cols-6 gap-6">
 
-										<div class="col-span-6 sm:col-span-6 lg:col-span-2">
-											<label for="origin" class="block text-sm font-medium text-gray-700">
-												Cuenta de origen
-											</label>
-											<select id="origin" name="origin" autocomplete="origin" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-												<option>United States</option>
-												<option>Canada</option>
-												<option>Mexico</option>
-											</select>
-										</div>
+											<div class="col-span-6 sm:col-span-6 lg:col-span-2">
+												<label for="origin" class="block text-sm font-medium text-gray-700">
+													Cuenta de origen
+												</label>
+												<select id="origin" name="origin" autocomplete="origin" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+													<option>United States</option>
+													<option>Canada</option>
+													<option>Mexico</option>
+												</select>
+											</div>
 
-										<div class="col-span-6 sm:col-span-6 lg:col-span-2">
-											<label for="destination" class="block text-sm font-medium text-gray-700">
-												Cuenta destino
-											</label>
-											<select id="destination" name="destination" autocomplete="destination" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-												<option>United States</option>
-												<option>Canada</option>
-												<option>Mexico</option>
-											</select>
-										</div>
+											<div class="col-span-6 sm:col-span-6 lg:col-span-2">
+												<label for="destination" class="block text-sm font-medium text-gray-700">
+													Cuenta destino
+												</label>
+												<select id="destination" name="destination" autocomplete="destination" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+													<option>United States</option>
+													<option>Canada</option>
+													<option>Mexico</option>
+												</select>
+											</div>
 
-										<div class="col-span-6 sm:col-span-6 lg:col-span-2">
+											<div class="col-span-6 sm:col-span-6 lg:col-span-2">
 
-											<label for="mount" class="block text-sm font-medium text-gray-700">
-												Monto de la transacción
-											</label>
-  											<div class="mt-1 relative rounded-md shadow-sm">
-											    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-											      	<span class="text-gray-500 sm:text-sm">
-											        	$
-											      	</span>
-											    </div>
-												<input type="text" name="mount" id="mount" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
-												<div class="absolute inset-y-0 right-0 flex items-center">
-	      											<label for="currency" class="sr-only">Currency</label>
-	      											<select id="currency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
-											        	<option>USD</option>
-											     	</select>
-	    										</div>
-	  										</div>
+												<label for="mount" class="block text-sm font-medium text-gray-700">
+													Monto de la transacción
+												</label>
+	  											<div class="mt-1 relative rounded-md shadow-sm">
+												    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+												      	<span class="text-gray-500 sm:text-sm">
+												        	$
+												      	</span>
+												    </div>
+													<input type="text" name="mount" id="mount" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+													<div class="absolute inset-y-0 right-0 flex items-center">
+		      											<label for="currency" class="sr-only">Currency</label>
+		      											<select id="currency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+												        	<option>USD</option>
+												     	</select>
+		    										</div>
+		  										</div>
+											</div>
 										</div>
 									</div>
+									<div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+										<button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+											Transferir
+										</button>
+									</div>
 								</div>
-								<div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-									<button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-										Transferir
-									</button>
-								</div>
-							</div>
-						</form>
+							</form>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="hidden sm:block" aria-hidden="true">
-				<div class="py-5">
-					<div class="border-t border-gray-200"></div>
+				<div class="hidden sm:block" aria-hidden="true">
+					<div class="py-5">
+						<div class="border-t border-gray-200"></div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	@else
+		<div class="bg-indigo-600">
+			<div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+				<div class="flex items-center justify-between flex-wrap">
+					<div class="w-0 flex-1 flex items-center">
+						<span class="flex p-2 rounded-lg bg-indigo-800">          
+							<svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+							</svg>
+						</span>
+						<p class="ml-3 font-medium text-white truncate">
+							<span class="hidden md:inline">
+								No tiene cuentas de terceros registradas hasta el momento, primero debe registrar una.
+							</span>
+						</p>
+					</div>
+					<div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
+						<button class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50" data-toggle="modal" data-target="#exampleModal">
+							Registrar nueva cuenta
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	@endif
 </main>
 
 {{-- onclick="sendOtherAccount()" --}}

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Models\IndividualAccount;
 
 class IndividualAccounts extends Component
 {
@@ -10,7 +11,11 @@ class IndividualAccounts extends Component
 	
     public function render()
     {
-        return view('livewire.individual-accounts');
+        $accounts   = IndividualAccount::where('user_id', auth()->id())
+                            ->latest('id')
+                            ->get();
+
+        return view('livewire.individual-accounts',compact('accounts'));
     }
 
     protected $listeners = [
