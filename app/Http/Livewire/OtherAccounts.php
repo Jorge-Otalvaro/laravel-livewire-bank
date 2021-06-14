@@ -12,6 +12,7 @@ class OtherAccounts extends Component
 {
     public $newaccount, $name, $number_account, $user_id;
     public $mount, $destination, $origin;
+    public $account = 0;
 
     public function mount()
     {
@@ -19,6 +20,7 @@ class OtherAccounts extends Component
         $this->user_id      = auth()->id();
         $this->origin       = $this->origin;
         $this->mount        = $this->mount;    
+        $this->account      = Account::where('user_id', auth()->id())->get()->sum('saldo');
     }
 
     public function render()
@@ -81,48 +83,43 @@ class OtherAccounts extends Component
             'origin'        => 'required',
             'mount'         => 'required',
         ]);
+     
+        $transfer = Transfer::create(
+        [
+            'user_id'           => $this->user_id,
+            'account_id'        => $this->origin,
+            'uuid'              => $this->destination,
+            'mount'             => $this->mount
+        ]);  
 
+        Movement::create(
+        [
+            'user_id'           => $this->user_id,
+            'account_id'        => $this->origin,
+            'transfer_id'       => $transfer->id
+        ]); 
 
-
-
-        if ($approved) {            
-            $transfer = Transfer::create(
-            [
-                'user_id'           => $this->user_id,
-                'account_id'        => $this->origin,
-                'uuid'              => $this->destination,
-                'mount'             => $this->mount
-            ]);  
-
-            Movement::create(
-            [
-                'user_id'           => $this->user_id,
-                'account_id'        => $this->origin,
-                'transfer_id'       => $transfer->id
-            ]); 
-
-            $this->alert('success', 'Transferencia registrada. Numero de Aprobación '. $transfer->id .'.', [
-                'position' =>  'top-end', 
-                'timer' =>  3000,  
-                'toast' =>  true, 
-                'text' =>  '', 
-                'confirmButtonText' =>  'Ok', 
-                'cancelButtonText' =>  'Cancel', 
-                'showCancelButton' =>  false, 
-                'showConfirmButton' =>  false, 
-            ]);            
-        }
-
-        $this->alert('error', '¡No tiene fondos suficientes!', [
-            'position' =>  'bottom-end', 
+        $this->alert('success', 'Transferencia registrada. Numero de Aprobación '. $transfer->id .'.', [
+            'position' =>  'top-end', 
             'timer' =>  3000,  
             'toast' =>  true, 
-            'text' =>  'Revisa tu saldo disponible, e intenta de nuevo', 
+            'text' =>  '', 
             'confirmButtonText' =>  'Ok', 
             'cancelButtonText' =>  'Cancel', 
             'showCancelButton' =>  false, 
             'showConfirmButton' =>  false, 
-        ]);          
+        ]);            
+
+        // $this->alert('error', '¡No tiene fondos suficientes!', [
+        //     'position' =>  'bottom-end', 
+        //     'timer' =>  3000,  
+        //     'toast' =>  true, 
+        //     'text' =>  'Revisa tu saldo disponible, e intenta de nuevo', 
+        //     'confirmButtonText' =>  'Ok', 
+        //     'cancelButtonText' =>  'Cancel', 
+        //     'showCancelButton' =>  false, 
+        //     'showConfirmButton' =>  false, 
+        // ]);          
 
         $this->newaccount   = 0;
         $this->resetInputFields();

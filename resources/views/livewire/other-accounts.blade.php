@@ -72,8 +72,8 @@
 									Realizar transferencia a cuentas de terceros
 								</h2>
 								<p class="mt-1 text-sm text-gray-600">
-									Podrás realizar las trasferencias a las cuentas de terceros, que no tengas registradas previamente.								
-								</p>
+									Podrás realizar las trasferencias a las cuentas de terceros, que no tengas registradas previamente.							
+								</p>								
 							</div>
 						</div>
 
@@ -90,7 +90,7 @@
 												<select id="origin" name="origin" autocomplete="origin" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model="origin">
 													<option value="">Seleccione</option>
 													@foreach($accounts as $account)														
-														<option value="{{ $account }}">{{ $account->number_account }}</option>
+														<option value="{{ $account->id }}">{{ $account->number_account }}</option>
 													@endforeach
 												</select>
 											</div>										
