@@ -13,5 +13,6 @@ class Transfer extends Model
         'user_id',
         'account_id',
         'mount',
+        'uuid'
     ];
 }

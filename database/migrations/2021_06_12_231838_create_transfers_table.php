@@ -22,7 +22,7 @@ class CreateTransfersTable extends Migration
             $table->unsignedBigInteger('account_id');        
             $table->foreign('account_id')->references('id')->on('accounts'); 
 
-            $table->string('uuid')->unique();
+            $table->string('uuid');
 
             $table->string('mount');           
 

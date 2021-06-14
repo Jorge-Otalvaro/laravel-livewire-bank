@@ -5,5 +5,7 @@
         </h2>
     </x-slot>
 
-    <livewire:detail-account>
+    @hasrole('client')
+        <livewire:detail-account>
+    @endhasrole   
 </x-app-layout>

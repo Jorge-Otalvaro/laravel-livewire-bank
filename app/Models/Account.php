@@ -13,6 +13,7 @@ class Account extends Model
         'user_id',
         'number_account',
         'saldo',
+        'status',
     ];
 
     public function user()

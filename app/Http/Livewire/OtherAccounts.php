@@ -10,16 +10,15 @@ use App\Models\Movement;
 
 class OtherAccounts extends Component
 {
-	public $parametro;
-
     public $newaccount, $name, $number_account, $user_id;
-
     public $mount, $destination, $origin;
 
     public function mount()
     {
         $this->newaccount   = 0;
         $this->user_id      = auth()->id();
+        $this->origin       = $this->origin;
+        $this->mount        = $this->mount;    
     }
 
     public function render()
@@ -39,8 +38,11 @@ class OtherAccounts extends Component
 
     private function resetInputFields()
     {
-        $this->name = '';
-        $this->number_account = '';
+        $this->name             = '';
+        $this->number_account   = '';
+        $this->destination      = '';
+        $this->origin           = '';
+        $this->mount            = '';
     }
 
     public function store()
@@ -76,45 +78,53 @@ class OtherAccounts extends Component
     {
         $this->validate([
             'user_id'       => 'required',
-            'account_id'    => 'required',
+            'origin'        => 'required',
             'mount'         => 'required',
         ]);
-   
-        $transfer = Transfer::create(
-        [
-            'user_id'           => $this->user_id,
-            'account_id'        => $this->account_id,
-            'mount'             => $this->mount
-        ]);  
 
-        Movement::create(
-        [
-            'user_id'           => $this->user_id,
-            'account_id'        => $this->account_id,
-            'transfer_id'       => $transfer
-        ]); 
 
-        $this->alert('success', 'Cuenta de tercero registrada.', [
-            'position' =>  'top-end', 
+
+
+        if ($approved) {            
+            $transfer = Transfer::create(
+            [
+                'user_id'           => $this->user_id,
+                'account_id'        => $this->origin,
+                'uuid'              => $this->destination,
+                'mount'             => $this->mount
+            ]);  
+
+            Movement::create(
+            [
+                'user_id'           => $this->user_id,
+                'account_id'        => $this->origin,
+                'transfer_id'       => $transfer->id
+            ]); 
+
+            $this->alert('success', 'Transferencia registrada. Numero de Aprobación '. $transfer->id .'.', [
+                'position' =>  'top-end', 
+                'timer' =>  3000,  
+                'toast' =>  true, 
+                'text' =>  '', 
+                'confirmButtonText' =>  'Ok', 
+                'cancelButtonText' =>  'Cancel', 
+                'showCancelButton' =>  false, 
+                'showConfirmButton' =>  false, 
+            ]);            
+        }
+
+        $this->alert('error', '¡No tiene fondos suficientes!', [
+            'position' =>  'bottom-end', 
             'timer' =>  3000,  
             'toast' =>  true, 
-            'text' =>  '', 
+            'text' =>  'Revisa tu saldo disponible, e intenta de nuevo', 
             'confirmButtonText' =>  'Ok', 
             'cancelButtonText' =>  'Cancel', 
             'showCancelButton' =>  false, 
             'showConfirmButton' =>  false, 
-        ]);
+        ]);          
 
         $this->newaccount   = 0;
         $this->resetInputFields();
-    }
-
-   	protected $listeners = [
-        'event' => 'show'
-    ];
-
-    public function show($param)
-    {
-        $this->parametro = $param;        
     }
 }

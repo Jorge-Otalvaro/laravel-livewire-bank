@@ -68,11 +68,11 @@
 					<div class="md:grid md:grid-cols-3 md:gap-6">
 						<div class="md:col-span-1">
 							<div class="px-4 sm:px-0">
-								<h3 class="text-lg font-medium leading-6 text-gray-900">
+								<h2 class="text-lg font-medium leading-6 text-gray-900">
 									Realizar transferencia a cuentas de terceros
-								</h3>
+								</h2>
 								<p class="mt-1 text-sm text-gray-600">
-									Podrás realizar las trasferencias a las cuentas de terceros, que no tengas registradas previamente.
+									Podrás realizar las trasferencias a las cuentas de terceros, que no tengas registradas previamente.								
 								</p>
 							</div>
 						</div>
@@ -88,19 +88,22 @@
 													Cuenta de origen
 												</label>
 												<select id="origin" name="origin" autocomplete="origin" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model="origin">
-													@foreach($accounts as $account)
-														<option>{{ $account->number_account }}</option>
+													<option value="">Seleccione</option>
+													@foreach($accounts as $account)														
+														<option value="{{ $account }}">{{ $account->number_account }}</option>
 													@endforeach
 												</select>
-											</div>
+											</div>										
 
 											<div class="col-span-6 sm:col-span-6 lg:col-span-3">
 												<label for="destination" class="block text-sm font-medium text-gray-700">
 													Cuenta destino
 												</label>
-												<select id="destination" name="destination" autocomplete="destination" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model="destination">
-													@foreach($destinations as $account)
-														<option>{{ $account->name }} - {{ $account->number_account }}</option>
+												<select id="
+												" name="destination" autocomplete="destination" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model="destination">
+													<option value="">Seleccione</option>
+													@foreach($destinations as $account)														
+														<option value="{{ $account->id }}">{{ $account->name }} - {{ $account->number_account }}</option>
 													@endforeach
 												</select>
 											</div>
@@ -136,6 +139,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="hidden sm:block" aria-hidden="true">
 					<div class="py-5">
 						<div class="border-t border-gray-200"></div>

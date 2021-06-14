@@ -18,7 +18,8 @@ class CreateAccountsTable extends Migration
             $table->unsignedBigInteger('user_id');        
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('number_account', 100)->unique(); 
-            $table->string('saldo');           
+            $table->string('saldo');     
+            $table->enum('status',['active','inactive'])->default('active');      
             $table->timestamps();
         });
     }
