@@ -10,17 +10,20 @@ use App\Models\Movement;
 
 class IndividualAccounts extends Component
 {
-    public $newaccount, $name, $number_account, $user_id;
-    public $mount, $destination, $origin;
-    public $account = 0;
+    public $newaccount, $name, $number_account, $user_id, $account;
+    public $mount, $destination, $origin, $moverSaldo;
+    // public $account = 0;
 
     public function mount()
     {
         $this->newaccount   = 0;
         $this->user_id      = auth()->id();
-        $this->origin       = $this->origin;
+        $this->origin       = 0;
         $this->mount        = $this->mount;    
-        $this->account      = Account::where('user_id', $this->user_id)->get()->sum('saldo');
+        $this->destination  = $this->destination;    
+        $this->account      = Account::where('user_id', auth()->id())->get()->sum('saldo');
+        // $this->account      = 1;
+        $this->moverSaldo   = false;
     }
 
     public function render()
@@ -43,7 +46,7 @@ class IndividualAccounts extends Component
         $this->name             = '';
         $this->number_account   = '';
         $this->destination      = '';
-        $this->origin           = '';
+        $this->origin           = 0;
         $this->mount            = '';
     }
 
@@ -76,16 +79,23 @@ class IndividualAccounts extends Component
         $this->resetInputFields();
     }
 
+    public function check()
+    {
+        // $saldo = Account::where('user_id', $this->user_id)->sum('saldo');        
+        // $this->moverSaldo = $saldo <= 0 ? false : true;  
+
+        // $saldo  = Account::where('user_id', auth()->id())->get()->sum('saldo');
+        // $this->moverSaldo = $saldo <= 0 ? false : true;  
+    }
+
     public function registertransaction()
     {
         $this->validate([
             'user_id'       => 'required',
             'origin'        => 'required',
             'mount'         => 'required',
-        ]);
-
-
-     
+        ]);    
+        
         $transfer = Transfer::create(
         [
             'user_id'           => $this->user_id,
@@ -101,6 +111,8 @@ class IndividualAccounts extends Component
             'transfer_id'       => $transfer->id
         ]); 
 
+        $this->updateBalance();
+
         $this->alert('success', 'Transferencia registrada. Numero de Aprobación '. $transfer->id .'.', [
             'position' =>  'top-end', 
             'timer' =>  3000,  
@@ -110,7 +122,26 @@ class IndividualAccounts extends Component
             'cancelButtonText' =>  'Cancel', 
             'showCancelButton' =>  false, 
             'showConfirmButton' =>  false, 
-        ]);            
+        ]);           
+
+        $this->newaccount   = 0;
+        $this->account      = Account::where('user_id', auth()->id())->get()->sum('saldo');
+        $this->resetInputFields();
+    }
+
+    public function updateBalance()
+    {
+        $balance = Account::find($this->origin);    
+
+        $total          = $balance->saldo;
+        $subtraction    = $this->mount;
+
+        $saldo          = $total - $subtraction;
+
+        
+        $balance->update([
+            'saldo' => $saldo
+        ]); 
 
         // $this->alert('error', '¡No tiene fondos suficientes!', [
         //     'position' =>  'bottom-end', 
@@ -121,9 +152,6 @@ class IndividualAccounts extends Component
         //     'cancelButtonText' =>  'Cancel', 
         //     'showCancelButton' =>  false, 
         //     'showConfirmButton' =>  false, 
-        // ]);          
-
-        $this->newaccount   = 0;
-        $this->resetInputFields();
+        // ]); 
     }
 }

@@ -89,11 +89,11 @@
 												</label>
 												<select id="origin" name="origin" autocomplete="origin" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model="origin">
 													<option value="">Seleccione</option>
-													@foreach($accounts as $account)														
-														<option value="{{ $account->id }}">{{ $account->number_account }}</option>
+													@foreach($accounts as $origin)														
+														<option value="{{ $origin->id }}">{{ $origin->number_account }}</option>
 													@endforeach
 												</select>
-											</div>										
+											</div>	
 
 											<div class="col-span-6 sm:col-span-6 lg:col-span-3">
 												<label for="destination" class="block text-sm font-medium text-gray-700">
@@ -102,8 +102,8 @@
 												<select id="
 												" name="destination" autocomplete="destination" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model="destination">
 													<option value="">Seleccione</option>
-													@foreach($destinations as $account)														
-														<option value="{{ $account->id }}">{{ $account->name }} - {{ $account->number_account }}</option>
+													@foreach($destinations as $destination)														
+														<option value="{{ $destination->id }}">{{ $destination->name }} - {{ $destination->number_account }}</option>
 													@endforeach
 												</select>
 											</div>
@@ -118,7 +118,7 @@
 												        	$
 												      	</span>
 												    </div>
-													<input type="text" name="mount" id="mount" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00" wire:model="mount">
+													<input type="text" wire:change.prevent="check()" name="mount" id="mount" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00" wire:model="mount">
 													<div class="absolute inset-y-0 right-0 flex items-center">
 		      											<label for="currency" class="sr-only">Currency</label>
 		      											<select id="currency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
@@ -126,13 +126,24 @@
 												     	</select>
 		    										</div>
 		  										</div>
+		  										@if($mount < $account)
+												@else
+													<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+														¡No tiene fondos suficientes!
+													</span>
+												@endif		  										
 											</div>
 										</div>
 									</div>
+
 									<div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-										<button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" wire:click.prevent="registertransaction()">
-											Transferir
-										</button>
+										@if($mount < $account)
+										{{-- @if($moverSaldo == true) --}}
+											<button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" wire:click.prevent="registertransaction()">
+												Transferir
+											</button>
+										@else											
+										@endif
 									</div>
 								</div>
 							</form>
