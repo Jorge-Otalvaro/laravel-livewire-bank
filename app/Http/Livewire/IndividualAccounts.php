@@ -20,7 +20,7 @@ class IndividualAccounts extends Component
         $this->user_id      = auth()->id();
         $this->origin       = $this->origin;
         $this->mount        = $this->mount;    
-        $this->account      = Account::where('user_id', auth()->id())->get()->sum('saldo');
+        $this->account      = Account::where('user_id', $this->user_id)->get()->sum('saldo');
     }
 
     public function render()
@@ -83,6 +83,8 @@ class IndividualAccounts extends Component
             'origin'        => 'required',
             'mount'         => 'required',
         ]);
+
+
      
         $transfer = Transfer::create(
         [

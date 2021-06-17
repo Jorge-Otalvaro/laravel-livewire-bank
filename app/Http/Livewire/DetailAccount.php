@@ -13,7 +13,7 @@ class DetailAccount extends Component
     {           
         $this->user_id 			= auth()->id();
         $this->number_account   = rand(11111111111, 9999999999);
-        $this->saldo   			= 0;
+        $this->saldo   			= 990;
     }
 
     public function render()
